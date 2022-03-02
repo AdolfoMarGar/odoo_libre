@@ -1,0 +1,191 @@
+<odoo>
+  <data>
+
+    <!-- vistas -->
+
+    <record model="ir.ui.view" id="odoo_libre.aparcami_list_view">
+      <field name="name">odoo_libre.aparcami.view.tree</field>
+      <field name="model">odoo_libre.aparcami</field>
+      <field name="arch" type="xml">
+        <tree>
+          <field name="name"/>
+          <field name="plazas"/>
+        </tree>
+      </field>
+    </record>
+
+    <record model="ir.ui.view" id="odoo_libre.aparcami_form_view">
+    <field name="name">odoo_libre.aparcami.view.form</field>
+    <field name="model">odoo_libre.aparcami</field>
+    <field name="arch" type="xml">
+      <form string="Formulario de aparcamiento">
+        <sheet>
+          <div class ="oe_title">
+            <h1>
+              <field name ="name" placeholder ="Direccion:"/>
+            </h1>
+          </div>
+          <group>
+            <group>
+              <separator string="Informacion general"/>
+              <field name="plazas"/>
+            </group>
+          </group>
+          <group>
+            <field name="coche_ids"/>
+          </group >
+        </sheet>
+      </form>
+    </field>
+    </record>
+    
+
+    <record model="ir.ui.view" id="odoo_libre.coche_list_view">
+      <field name="name">odoo_libre.coche.view.tree</field>
+      <field name="model">odoo_libre.coche</field>
+      <field name="arch" type="xml">
+        <tree>
+          <field name="name"/>
+          <field name="modelo"/>
+          <field name="fechaCompra"/>
+          <field name="consumo"/>
+          <field name="averiado"/>
+        </tree>
+      </field>
+    </record>
+
+    <record model="ir.ui.view" id="odoo_libre.coche_form_view">
+    <field name="name">odoo_libre.coche.view.form</field>
+    <field name="model">odoo_libre.coche</field>
+    <field name="arch" type="xml">
+      <form string="Formulario de informacion del vehiculo">
+        <sheet>
+        <separator string = "Informacion del vehiculo"/>
+          <group>
+            <group>
+              <field name="name"/>
+              <field name="modelo"/>
+              <field name="fechaCompra"/>
+              <field name="consumo"/>
+            </group>
+          </group>
+          <group>
+            <field name="anios"/>
+            <field name="averiado"/>
+            <field name="aparcami_id"/>
+          </group>
+          <group>
+            <field name="servicio_ids"/>
+          </group>
+        </sheet>
+      </form>
+    </field>
+    </record>
+
+    <record model="ir.ui.view" id="odoo_libre.coche_search_view">
+      <field name="name">odoo_libre.coche.view.search</field>
+      <field name="model">odoo_libre.coche</field>
+      <field name="arch" type="xml">
+        <search>
+          <field name="modelo"/>
+          <field name="fechaCompra"/>
+          <filter name="averiado" string="Averiado" domain="[('averiado','=',True)]"/>
+          <group>
+            <filter name="group_by_averiado" string ="Averiado" context="{'group_by':'averiado'}"/>
+          </group>
+        </search>
+      </field>
+    </record>
+
+    <record model="ir.ui.view" id="odoo_libre.servicio_list_view">
+      <field name="name">odoo_libre.servicio.view.tree</field>
+      <field name="model">odoo_libre.servicio</field>
+      <field name="arch" type="xml">
+        <tree>
+          <field name="fecha"/>
+          <field name="tipo"/>
+          <field name="coste"/>
+        </tree>
+      </field>
+    </record>
+
+    <record model="ir.ui.view" id="odoo_libre.servicio_form_view">
+    <field name="name">odoo_libre.servicio.view.form</field>
+    <field name="model">odoo_libre.servicio</field>
+    <field name="arch" type="xml">
+        <form string="Formulario de informacion del servicio">
+          <sheet>
+          <separator string = "Informacion del servicio"/>
+            <group>
+              <group>
+                <field name="fecha"/>
+                <field name="tipo"/>
+                <field name="coste"/>
+              </group>
+            </group>
+            <group>
+              <field name="coche_ids"/>
+            </group>         
+          </sheet>
+        </form>
+    </field>
+    </record>
+
+    <record model="ir.ui.view" id="odoo_libre.servicio_calendar_view">
+      <field name="name">odoo_libre.servicio.view.calendar</field>
+      <field name="model">odoo_libre.servicio</field>
+      <field name="arch" type="xml">
+        <calendar string="Calendario de servicios" date_start="fecha" color="tipo" mode="month">
+          <field name="tipo"/>
+          <field name="coste"/>
+        </calendar>
+      </field>
+    </record>
+
+    <record model="ir.ui.view" id="odoo_libre.servicio_search_view">
+      <field name="name">odoo_libre.servicio.view.search</field>
+      <field name="model">odoo_libre.servicio</field>
+      <field name="arch" type="xml">
+        <search>
+          <field name="fecha"/>
+          <field name="tipo" widget="selection"/>
+          <group>
+          <filter name="group_by_tipo" string ="Tipo" context="{'group_by':'tipo'}"/>
+          </group>
+        </search>
+      </field>
+    </record>
+
+
+    <!--Menu action-->
+    <record model="ir.actions.act_window" id="odoo_libre.aparcami_action_window">
+      <field name="name">Aparcamientos</field>
+      <field name="res_model">odoo_libre.aparcami</field>
+      <field name="view_mode">tree,form</field>
+    </record>
+
+    <record model="ir.actions.act_window" id="odoo_libre.coche_action_window">
+      <field name="name">Coches</field>
+      <field name="res_model">odoo_libre.coche</field>
+      <field name="view_mode">tree,form,search</field>
+    </record>
+
+    <record model="ir.actions.act_window" id="odoo_libre.servicio_action_window">
+      <field name="name">Servicios</field>
+      <field name="res_model">odoo_libre.servicio</field>
+      <field name="view_mode">tree,form,calendar,search</field>
+      <field name="context"> {'search_default_group_by_tipo':'False'}</field>
+    </record>
+
+    <!-- menus -->
+
+    <menuitem name="Inicio" id="odoo_libre.menu_root"/>
+
+    <menuitem name="Aparcamientos" id="odoo_libre.aparcami_menu" parent = 'odoo_libre.menu_root' action = 'odoo_libre.aparcami_action_window'/>
+    <menuitem name="Coches" id="odoo_libre.coche_menu" parent = 'odoo_libre.menu_root' action = 'odoo_libre.coche_action_window'/>
+    <menuitem name="Servicios" id="odoo_libre.servicio_menu" parent = 'odoo_libre.menu_root' action = 'odoo_libre.servicio_action_window'/>
+
+
+
+  </data>
+</odoo>

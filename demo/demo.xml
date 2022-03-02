@@ -1,0 +1,66 @@
+<odoo>
+  <data>
+    <record id="aparcami1" model="odoo_libre.aparcami">
+      <field name="name">Plaza Einstein</field>
+      <field name="plazas">12</field>
+    </record>
+
+    <record id="aparcami2" model="odoo_libre.aparcami">
+      <field name="name">Plaza del sol</field>
+      <field name="plazas">10</field>
+    </record>
+
+    <record id="coche1" model="odoo_libre.coche">
+      <field name="name">5445MM</field>
+      <field name="modelo">Ford panda</field>
+      <field name="fechaCompra">2010-01-07</field>
+      <field name="consumo">12.3</field>
+      <field name="averiado">True</field>
+      <field name="anios">22</field>
+      <field name="descripcion">Descripcion 1</field>
+      <field name="aparcami_id" ref="aparcami1"></field>
+    </record>
+
+    <record id="coche2" model="odoo_libre.coche">
+      <field name="name">6423ALM</field>
+      <field name="modelo">Mercedes clase C</field>
+      <field name="fechaCompra">2017-05-1</field>
+      <field name="consumo">15.7</field>
+      <field name="averiado">False</field>
+      <field name="anios">5</field>
+      <field name="descripcion">Descripcion 2</field>
+      <field name="aparcami_id" ref="aparcami1"></field>
+    </record>
+
+    <record id="coche3" model="odoo_libre.coche">
+      <field name="name">81642SI</field>
+      <field name="modelo">Land Rover Discovery</field>
+      <field name="fechaCompra">1999-10-07</field>
+      <field name="consumo">9.8</field>
+      <field name="averiado">False</field>
+      <field name="anios">23</field>
+      <field name="descripcion">Descripcion 3</field>
+      <field name="aparcami_id" ref="aparcami2"></field>
+    </record>
+
+    <record id="coche4" model="odoo_libre.coche">
+      <field name="name">11232SI</field>
+      <field name="modelo">Range Rover</field>
+      <field name="fechaCompra">2001-10-07</field>
+      <field name="consumo">12.0</field>
+      <field name="averiado">True</field>
+      <field name="anios">21</field>
+      <field name="descripcion">Descripcion 4</field>
+      <field name="aparcami_id" ref="aparcami2"></field>
+    </record>
+    
+    <record id="servicio1" model="odoo_libre.servicio">
+      <field name="fecha" eval="datetime.now()"></field>
+      <field name="tipo">l</field>
+      <field name="coste">20</field>   
+      <field name="coche_ids" eval="[(6, 0, [ref('coche2'), ref('coche3')])]"></field>   
+    </record>
+
+
+  </data>
+</odoo>
